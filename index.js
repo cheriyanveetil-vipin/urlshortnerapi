@@ -10,6 +10,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+const sayhello = (request, response) => {
+  response.status(200).json({"data":"Hello world"});
+};
+
 const getUrls = (request, response) => {
   //pool.connect();
   pool.query("SELECT * FROM urls", (error, results) => {
@@ -194,6 +198,11 @@ const checkRateLimit = (request, response) => {
       // handle errors
     });
 };
+
+app
+  .route("/hello")
+  // GET endpoint
+  .get(sayhello)
 
 app
   .route("/urls")
